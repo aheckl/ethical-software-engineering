@@ -1,0 +1,138 @@
+\documentclass[a4paper,12pt,]{article}
+\usepackage[utf8]{inputenc}
+
+\title{Feature 1: Individuelle Evaluation der psychischen Gesundheit}
+\author{A.~Heckl, A.~Kohles, A.~Lehene, A.~Mütter}
+\date{Februar 2020}
+
+\usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[ngerman]{babel}
+\newcommand{\ToDo}[1]{
+\begin{center}
+\fbox{
+\begin{minipage}{0.9\textwidth}
+#1
+\end{minipage}
+}
+\end{center}
+}
+
+\begin{document}
+
+\maketitle
+\begin{figure}
+\begin{minipage}[b]{\textwidth}
+\ToDo{\tiny\textbf{Hinweis:} Wir waren uns bei der Formulierung des Tagebuchs und des Abschlussberichts über die Richtlinien der gendergerechten Sprache und der gendergerechten Formulierung bewusst.
+Aus Gründen der Übersichtlichkeit und der einfacheren Lesbarkeit haben wir uns entschieden darauf hinzuweisen, dass in diesem Dokument mit allen männlichen Formulierungen von Personen (Angestellter, Mitarbeiter, Vorgesetzter) selbstverständlich auch die weiblichen Pendants gemeint sind, und diese in keiner Weise vernachlässigbar oder weniger bedeutungsvoll sind.}
+\end{minipage}
+\end{figure}
+
+\section{Deskriptive Systembeschreibung}
+
+Im Allgemeinen gibt es eine steigende Zahl an Ausfallzeiten von Arbeitnehmern, bedingt durch psychische Probleme\footnote{\tt https://www.aerzteblatt.de/nachrichten/72732/Psychische-Erkrankungen-Fehltage-\\erreichen-Hoechststand}. Hauptursache hierfür sind Depressionen, gefolgt von Reaktionen auf schwere Belastungen, Anpassungsstörungen und Burnout. Als Arbeitgeber besteht ein großes Interesse, diese Krankheiten frühzeitig zu erkennen, um durch entsprechende Gegenmaßnahmen lange und kostenintensive Ausfallzeiten zu vermeiden.
+Betroffen sind hierbei im Arbeitsumfeld neben Arbeitgebern auch der Betriebsrat und ggf. Werksärzte und Vertrauenspersonen, die sich mit den gesundheitlichen Belangen der Mitarbeiter auseinandersetzen.
+Zur Früherkennung psychischer Belastungen möchte der Arbeitgeber monatlich Umfragen durchführen lassen, anhand derer der Gefährdungsgrad eines Mitarbeiters beurteilt werden kann. Der Fokus liegt hier insbesondere auf Burnout, eine Erkrankung die maßgeblich durch den Arbeitsalltag verursacht werden kann. Hierfür wird ein ca. 5-minütiger Burnouttest der Rehaklinik Bad Bocklet zu Grunde gelegt.\footnote{\tt https://www.rehazentrum-bb.de/tests/burnout-test.html\#testbeginn} Neben den Single-Choice Fragen soll es auch die Möglichkeit geben seine eigene Stimmung auf einer Skala von 1-10 einzuschätzen. Die Ergebnisse werden jedem Mitarbeiter grafisch in einem Jira-Plugin visualisiert und mit den Ergebnissen aus dem Vormonat oder den Vormonaten verglichen, sodass auch starke Änderungen erkennbar sind. Der Fragebogen besteht aus drei Unterkategorien von Fragen und ist einfach auszuwerten so wird jedem Mitarbeiter für jede Unterkategorie und für die Gesamtauswertung des Test jeweils ein Alert in Jira angezeigt, mit der Empfehlung ob in dem bestimmten Bereich Hilfe aufzusuchen ist oder nicht.
+
+\section{Wertekonflikte}
+
+\subsection{Fragestellungen}
+Vor der Umsetzung einer solchen Maßnahme gibt es jedoch gewisse Fragestellungen, die aufkommen: 
+\begin{itemize}
+\item Darf man Arbeitnehmer dazu zwingen, Fragen zu beantworten, die Rückschlüsse auf seine Gesundheit zulassen?
+\item Darf man die Umfrageergebnisse weiterverarbeiten? (Oder werden die Ergebnisse nur zur Selbsteinschätzung verwendet?)
+\item Kann man sich die psychologische Fähigkeit anmaßen, die Ergebnisse aussagekräftig beurteilen zu können?
+\item Dürfen aufgrund bedenklicher Testergebnisse Maßnahmen verordnet werden?
+\end{itemize} 
+
+\subsection{Biases}
+Des Weiteren muss man sich auch mit sogenannten \emph{Preexisting biases} auseinandersetzen. So kann man beispielsweise Personen sehr schwer dazu zwingen, persönliche Informationen gegenüber dem Arbeitgeber preiszugeben. Auch können die Antworten nicht auf Wahrheitsgehalt getestet und somit die Aussagekraft nicht eingeschätzt werden. Auch eine aktive Manipulation der Antworten für eine positive Selbstdarstellung oder eine verzerrte Selbstwahrnehmung ist nicht auszuschließen. Im Allgemeinen ist ein derartiger Schnelltest aber sehr leicht durchzuführen und schneller und günstiger als Sprechstunden beim Facharzt oder die Einführung eines Teamcoaches. Außerdem sind frühzeitige Erkennungssysteme weit verbreitet und haben in der Regel auch eine hohe Akzeptanz bei Mitarbeitern, denn es liegt im Interesse der Arbeitnehmer gesund zu bleiben und langen Ausfallzeiten durch Krankheit vorzubeugen.
+
+Zusätzlich lassen sich auch \emph{Technical biases} feststellen: Psychische Krankheiten sind ein komplexes gesundheitliches Konstrukt, das sich kaum oder nur schwer in einem Fragebogen erfassen oder detektieren lassen. Auch die Richtigkeit der Analyseergebnisse ist nicht gewährleistet: Man kann sich nicht sicher sein, ob die abgegebenen Antworten wirklich auf Burnout zurückzuführen sind oder ob es andere Gründe dafür gibt. Außerdem bildet die Umfrage nur einen Arbeitstag ab. Dieser kann stark von äußeren Umständen beeinflusst sein (schlechter Tag, schlecht geschlafen, private Probleme, …) und so das Ergebnis verfälschen.
+
+Weiterhin gibt es auch \emph{Emergent biases}, die für dieses Gadget aufkommen: Gesundheitliche Daten von Mitarbeitern sind sehr sensibel und sehr vertraulich zu behandeln. Der Diebstahl oder der Missbrauch solcher Daten durch Kollegen, Vorgesetzten oder Hackern ist im digitalen Umfeld möglich. Menschen mit Zugriff auf diese Daten könnten beispielsweise die Auswertung manipulieren, um Gründe für Entlassungen zu schaffen oder um ein Druckmittel auf Mitarbeiter aufzubauen.
+
+\subsection{Vortheoretische Deliberation}
+In Anbetracht der Fragestellungen und verschiedenen Biases, stellt sich die Frage ob und wie dieses Feature umgesetzt werden soll. Einige Einschränkungen lassen sich dabei klar erkennen: Die Ergebnisse, die dieses Gadget liefert, dürfen nicht als Druckmittel eingesetzt werden oder zu beruflichen Konsequenzen führen. Unter anderem zu diesem Zweck muss mit den gesammelten Daten vertraulich umgegangen werden, indem man sie beispielsweise anonymisiert. Der Zugriff auf Daten von gleichgestellten Kollegen ist zum Schutz der Privatsphäre verboten. Der Zugriff durch Vorgesetzte ist streitbar und muss im Weiteren genauer betrachtet werden. 
+Anzumerken ist, dass das Plugin keinesfalls einen fachkundigen Psychologen ersetzt, es aber als Hilfestellung dienen kann, indem es Empfehlungen ausspricht, wenn weitere Maßnahmen ergriffen werden sollten.
+
+\section{Ethische Systemüberprüfung}
+
+Im Folgenden wird die Umsetzung des Features aus verschiedenen
+Sichtweisen analysiert: zunächst deontologisch nach Kants kategorischem
+Imperativ und anschließend konsequentialistisch nach utilitaristischem
+Konzept.
+
+\subsection{Deontologische Betrachtung}
+
+Aus deontologischer Sicht spricht für die Umsetzung dieses Tools, dass – sofern es richtig eingesetzt wird – keine Person dadurch Schaden erleidet. Einzelne Personen mit psychischen Problemen, können aber starke Vorteile / Verbesserungen erfahren.
+Darüber hinaus wird Selbstreflektion durch den Fragebogen, sowohl beim Ausfüllen von diesem als auch bei dem Erhalt der Ergebnisse, ermutigt. Selbstreflektion als auch Selbstverbesserung und das Achten auf die eigene mentale Gesundheit sind erstrebenswerte Handlungen. Wenn jemand beispielsweise dauerhaft unglücklich und gestresst ist, aber sich den Ursachen dafür nicht bewusst ist, dient das Ausfüllen des Fragebogens zunächst als Denkanstoß, da man sich mit der eigenen Gemütslage auseinandersetzen muss, um die Fragen wahrheitsgetreu beantworten zu können. Aber auch die Evaluation der Antworten kann sehr aufschlussreich sein, da Empfehlungen ausgesprochen werden. Somit kann das Tool zu Selbst-Verbesserung motivieren und somit aus deontologischer Sicht wünschenswerte Handlungen motivieren.
+
+Es ist allerdings festzustellen, dass die Preisgabe von sensiblen Gesundheitsdaten einen starken, einseitigen Eingriff in die Privatsphäre darstellt. Vorgesetzte besitzen weitreichenden Zugriff auf die Daten, wohingegen Mitarbeiter nur ihre eigenen Ergebnisse einsehen können. Dies ist eine Einschränkung des grundlegenden Menschenrechts auf Privatheit und somit moralisch verwerflich (Recht auf Privatheit ist ein Menschenrecht und somit ist die Einhaltung dessen aus deontologischer Sicht moralisch erwünscht).
+Darüber hinaus besteht die Gefahr, dass Vorgesetzte ihre Mitarbeiter zwingen die Fragebögen zu beantworten. Die Motivation der Vorgesetzten ist hierbei jedoch vernachlässigbar, da sie aktiv in die Autonomie ihrer Mitarbeiter eingreifen. Nach Kants kategorischem Imperativ rechtfertigt das Ziel psychisch gesunde Mitarbeiter und ein produktives Unternehmen nicht die Mittel wie Zwang oder sogar Drohungen. Somit werden hier nicht nur Vorgesetzte zu unmoralischem Handeln motiviert, es wird auch aktiv in die Autonomie der Mitarbeiter eingegriffen und damit wird ein weiteres Menschenrecht angegriffen. Ferner können Mitarbeiter durch den ausgeübten Druck und eventuellem Zwang auch psychische Schaden erleiden. Auch Handlungen die Andere verletzen (psychisch oder physisch) sind nach kategorischem Imperativ nicht erstrebenswert.
+
+
+\subsection{Konsequentialistische Betrachtung}
+
+Auch konsequentialistisch sprechen Argumente gegen das Tool: Das Ausfüllen des Fragebogens und das Befassen mit den Auswertungen beansprucht die Zeit der Mitarbeiter und kostet dem Unternehmen so letztendlich Geld, wodurch das Allgemeinwohl abnimmt. Fehlerhaft Analysen können zudem zu dem Glauben an Krankheiten führen unnötige Therapiesitzungen oder andere Gegenmaßnahmen motivieren. Auch diese kosten Zeit und Geld und stellen aufgrund der fehlerhaften Analyse unnötige Ausgaben dar. Außerdem kann es sogar zu wirklichen Erkrankungen führen, denn wenn man sich beispielsweise einredet krank zu sein (Hypochondrie\footnote{\tt https://flexikon.doccheck.com/de/Hypochondrie}), ist es wahrscheinlich, dass man sich passend verhält und infolgedessen tatsächlich erkrankt. Auch hieraus resultieren Ausfallzeiten und damit Produktivitätsabnahmen, aber auch, aufgrund ihrer Krankheiten, unglückliche Angestellte mit ihren mitleidenden Familien, was gleichbedeutend ist mit einer im Schnitt unglücklicheren Gesellschaft.
+Davon können auch Mitarbeiter betroffen sein, die kein falsches Ergebnis erhalten, die aber durch die ständige Auseinandersetzung mit den psychischen Krankheiten und deren Symptomen anfangen diese bei sich selbst zu erkennen und sich anschließend selbst diagnostizieren.
+ Des Weiteren können derartige Umfragen Druck auf die Mitarbeiter ausüben. Die Forderungen oder der Wunsch nach psychologischer Stabilität sowie das Gefühl von Überwachung am Arbeitsplatz kann sich negativ auf die Angestellten auswirken und somit das Wohlfühlen am Arbeitsplatz und folglich die Arbeitsleistung beeinträchtigen. Davon betroffen ist sowohl die Stimmung der Einzelnen als auch die Stimmung im gesamten Team, die sich dadurch verschlechtern. Aufgrund dessen oder des generellen Gefühls von Überwachung durch den Arbeitgeber ist es vorstellbar, dass Angestellte vermehrt den Arbeitsplatz zu konkurrierenden Unternehmen wechseln, die kein derartiges Tool einsetzen. Die zusätzlichen Aufwände zum Einstellen und zur Einarbeitung neuer Mitarbeiter kosten Zeit und folglich Geld. Ferner kann die Arbeitsmoral abnehmen, was sich in Produktivitätsverlust des Unternehmens und dadurch in der verminderten Wohlfahrt der Gesellschaft spiegelt. Dies ist kein erstrebenswerter Zustand. 
+
+Positiv schlägt jedoch zu Buche, dass Ausfallzeiten und lange Krankheiten vorgebeugt werden können. Durch das monatliche Ausfüllen des Fragebogens und dem damit verbundenen Feedback zur Gesundheit, sowie zu den Verlaufskurven, die nicht nur den aktuellen Zustand sondern auch die positive oder negative Entwicklung aufzeigen, setzten sich die ArbeitnehmerInnen regelmäßig mit ihrer psychischen Gesundheit auseinander, sodass eventuelle Erkrankungen frühzeitig erkannt und sogar behandelt werden können. Der Langzeitausfall eines Mitarbeiters kostet den Arbeitgeber sehr viel Arbeitskraft und gegebenenfalls eine zusätzliche Arbeitskraft zur Vertretung. Die Vermeidung dieser Ausfälle, ist mithilfe des Tools wesentlich leichter zu erreichen und zieht deutlich weniger entstehende Kosten mit sich.
+ Zudem fühlen sich Mitarbeiter auch wohler, wenn sie nicht nur durch ihre Arbeitsleistungen betrachtet werden, sondern sich der Arbeitgeber auch um das gesundheitliche Wohl der Mitarbeiter kümmert. Das Tool und die Sorge um die Mitarbeiter und die resultierenden Empfehlungen sowie die im Notfall bereitgestellten Behandlungen der Angestellten, gibt ihnen  das Gefühl von Vertrauen und Wertschätzung gegenüber ihren Arbeitgebern. Dies fördert einerseits das Gemeinwohl der gesamten Gruppe, andererseits steigert es die Arbeitsmoral und somit die Produktivität.
+Außerdem werden die Mitarbeiter über verschiedene psychische Krankheiten, insbesondere Burnout aufgeklärt, was dazu führen kann, dass sie bewusster Entscheidungen treffen und so nicht nur auf Dauer gesund bleiben sondern auch im Allgemeinen gesünder leben. Dies führt einerseits zu Produktivitätssteigerung innerhalb des Unternehmens und somit zur Verbesserung des Allgemeinwohls, andererseits zu einer im Schnitt gesünderen und damit glücklicheren Gesellschaft.
+
+\subsection{Theoretische Deliberation}
+Aus konsequentialistischer Sicht ist die Einführung eines solchen Tools als sehr sinnvoll zu erachten: Zwar entstehen Kosten durch die Zeit, den Fragebogen auszufüllen und diesen zu analysieren, jedoch stehen diese in keinem Verhältnis zu den entstehenden Kosten bei langfristigem Mitarbeiterausfall. Zudem kann das gesundheitliche Wohlergehen von Personen und der gesamten Gesellschaft auch nicht mit Geld gegengerechnet werden und steht deswegen im Vordergrund. Mögliche Falschanalysen werden insofern relativiert, als dass nur Maßnahmen und erste Gespräche empfohlen werden, und ab da ein Fachmann die Behandlung übernimmt. Dies beantwortet zugleich auch die zuvor gestellte Frage ob man sich die psychologischen Fähigkeiten anmaßen kann um Maßnahmen direkt einzuleiten. Denn einerseits werden nur Empfehlungen ausgestellt, andererseits wurde auch der verwendete Test von Spezialisten entwickelt. Der entstehende Druck oder die erhöhte Bereitschaft den Arbeitgeber zu wechseln werden vom verbesserten gesundheitlichen Wohl der Mitarbeiter kompensiert.
+Kategorisch ist das Tool in seiner jetzigen Form kritisch zu betrachten: Eine Pflicht zum Ausfüllen des Fragebogens mit sehr persönlichen Angaben ist nicht nur ein erheblicher Eingriff in die Freiheit des Menschen, sondern kann auch zu Falschangaben und Manipulation motivieren, dies ist aus kategorischer Sicht abzulehnen. Der einseitige Eingriff in die Privatsphäre ist ebenfalls kritisch, ein Mitarbeiter sollte selbst über die Weitergabe seiner Daten entscheiden dürfen.
+
+\section{Urteilsphase}
+
+Nach Betrachtung durch beide Paradigmen wurde beschlossen das Tool umzusetzen, jedoch mit Einschränkungen: Jeder Angestellte darf selbst entscheiden, wie er mit der Auswertung des Tests umgeht: ob er den Empfehlungen folgt oder nicht. Die direkte Einsichtnahme durch einen Vorgesetzten darf nur im Einvernehmen erfolgen. Zudem erfolgt die Teilnahme an der Umfrage auf nur aus freiem Willen, somit ist einerseits auch die zuvor gestellte Frage, ob man Mitarbeiter zur Teilnahme zwingen darf klar beantwortet, andererseits werden somit auch die deontologischen Einwände beachtet und versucht zu beschwichtigen. Das Tool verliert dadurch zwar etwas an Macht, ist aber ethisch deutlich vertretbarer. Es ist ein gesunder Kompromiss, der nicht zu unmoralischen Handlungen motiviert und trotzdem einen erstrebenswerten Endzustand darstellt.
+
+\section{Technische Umsetzung und Tests}
+Wie bereits in der Urteilsphase erwähnt, wird eine Umsetzung des Tools in Jira als sinnvoll erachtet. Der Ablauf der Benutzung lautet dabei wie folgt: zunächst bekommt jeder Mitarbeiter einmal im Monat per Email einen Link\footnote{\tt https://www.umfrageonline.com/s/9634d56} zu der Umfrage. Die Teilnahme an dieser ist freiwillig. Die Ergebnisse des Fragebogens werden als CSV-Datei in der Java\-Script Implementierung so weiterverarbeitet, dass die Mitarbeiter auf Jira jeweils ihre eigenen ausgewerteten Ergebnisse einsehen können. Um unser System als Ganzes testen zu können, haben wir Umfragedaten generiert, die im weiteren Verlauf benutzt werden.
+ 
+\subsection{JavaScript – Eingeloggten Benutzer bestimmen}
+In JavaScript wird zunächst der eingeloggte BenutzerIn bestimmt. Dies würde eigentlich über eine von Atlassian bereitgestellte Funktion (AJS.\$.get) erfolgen, da wir aber nur einen Benutzer haben (admin), haben wir uns in unserer Implementierung für eine Alternative entschieden. Aus einer Datenbank in der alle Mitarbeiter mit ihrer Mitarbeiter- Identifikationsnummer (ID) abgespeichert sind wird die höchste vergebene ID herausgefunden. Zunächst wird die Datenbank als Array mit der asynchronen Funktion fetchEmployee in JavaScript gefetched und anschließend wird die Länge dieses Arrays ermittelt. In unserem Beispiel sind die Mitarbeiter-IDs von eins bis zur höchsten ID lückenlos vergeben, sodass es in einem Team von beispielsweise 20 Mitarbeitern alle IDs von eins bis 20 gibt. Nach Ermittlung der größten ID wird mithilfe der JavaScript Funktionen Math.floor() und Math.random() eine zufällige ID gewählt, dessen Ergebnisse dann ausgewertet und in Jira angezeigt werden. Math.random() bestimmt eine Zufallszahl zwischen null und eins ([0; 1))  während Math.floor() eine beliebige Eingabezahl zu einem Integerwert rundet. Wenn man diese wie folgt aufruft Math.floor(Math.random()* X) erhält man eine zufällige ganze Zahl zwischen null und X ([0; X)). Da die MitarbeiterIn-ID null nicht existiert, X aber schon wird anschließend noch eins zu der ID gerechnet. Für diese ID werden dann die Ergebnisse berechnet und in Jira angezeigt. 
+
+\subsection{JavaScript – Berechnung der Ergebnisse}
+Der verwende Burnout-Test wurde von Spezialisten entwickelt und wird von dem Re\-habi\-litations- und Präventionszentrum Bad Bocklet empfohlen. Es ist ein leicht auszuwertender Selbsttest, der ab bestimmten Punktzahlen empfiehlt sich professionelle Hilfe zu holen. Der Test ist aus drei Fragekategorien aufgebaut: Distanziertheit, Emotionale Erschöpfung und Misserfolge. Jede der Subkategorien besteht aus sechs Aussagen, die nach einem Punktesystem von null  (trifft gar nicht zu) bis fünf (trifft voll und ganz zu) zu bewerten sind. Insgesamt ist es möglich eine Punktzahl von (3 * 30) 90 zu erreichen. Aber bereits ab einer Punktzahl von 55 oder höher wird professionelle Hilfe empfohlen. Auch ab einer Punktzahl von 19 oder höher in einer der Subkategorien wird professionelle Hilfesuchung nahegelegt. 
+In der JavaScript Implementierung gibt es für jeden Teilbereich und den gesamten Test, Methoden, die die jeweilige Punktzahl berechnen. Dies erfolgt nachdem die CSV-Datei mit den Mitarbeitern und ihre Antworten mittels der asynchronen Funktion fetchCsvData() gefetched werden. Der Aufbau der CSV- Datei ist dabei wie folgt: jeder Eintrag besteht aus einer Mitarbeiter-ID näheren Informationen zu dem Mitarbeiter (z.B. die Art der Einstellung), dem Datum an dem an der Umfrage teilgenommen wurde und die Antwortpunktzahl für jede Frage (Auch zu Fragen die nicht zum Burnout Test gehören). Zunächst werden alle Einträge zu der bereits bestimmten ID herausgesucht. Davon gibt es, sofern der Mitarbeiter häufiger an den Umfragen teilgenommen hat, mehrere, diese werden nach Datum in einem Array sortiert, das aktuellste Datum am Index null.  Anschließend werden für alle Einträge die Ergebnisse berechnet: das Gesamtergebnis des Tests und die Unterergebnisse der drei Subkategorien. In Jira wird für den aktuellen Eintrag die Punktzahl im Detail, mit der entsprechenden Empfehlung sichtbar sein. Darüber hinaus werden zum einen die Ergebnisse der Unterkategorien in einem RadarChart visualisiert und zum anderen ein Balkendiagramm das die Gesamtergebnisse der letzten zwölf Umfragen, anzeigt. Dieses dient dazu, die Verbesserungen oder Verschlechterungen der psychischen Gesundheit zu zeigen. Dadurch lässt sich auch erkennen ob ein tatsächliches Problem vorliegt, dass sich über längere Zeit schon andeutet oder, ob es ein negatives Ausnahmeergebnis, aufgrund zum Beispiel schlechter Laune ist. Damit wird auch das Risiko von Falschdiagnosen verkleinert. Auf eine grafische Darstellung des Verlaufs der in den Subkategorien erreichten Punktzahlen wird verzichtet, da sonst der Mitarbeiter mit Informationen überflutet wird und die Gefahr besteht, dass so der eigentliche Sinn des Tools, nämlich die Empfehlung, untergeht.
+
+In dem Fragebogen findet sich auch die Frage, wie die Stimmung seit der letzten Umfrage, auf einer Skala von eins (sehr schlecht) bis zehn (sehr gut), bewertet wird. Auch diese Werte werden in der CSV Datei mitgeliefert und in JavaScript nach Datum sortiert. In Jira findet sich ein Verlaufsdiagramm mit den letzten zwölf Stimmungspunktzahlen wieder. 
+
+
+\subsection{Grafische Darstellung}
+Zu Beginn werden mittels HTML Alerts die Ergebnisse der Gesamtauswertung, der Subkategorien (Distanziertheit, Misserfolge und emotionale Erschöpfung) und der Freitextangabe angezeigt. Befinden sich diese in einem kritischen Bereich, wird in einem rot hinterlegten Feld auf Ansprechpartner innerhalb der Firma verwiesen, um freiwillig weitere Schritte einzuleiten. Liegen die Ergebnisse in einem gesunden Rahmen, wird dies in einem grün hinterlegten Feld angezeigt.
+Im Anschluss wurden mit Hilfe des Plugins Charts.js\footnote{\tt  https://www.chartjs.org/} in Javascript drei Diagramme erzeugt.
+Nach dem Import des Plugins, sowie dem Anlegen des Charts in einem Canvas im HTML Part, kann dieses dynamisch aus dem Javascript File befüllt werden. Die zur Verfügung stehenden Diagrammtypen reichen hierfür mehr als aus.
+Im ersten Diagramm werden per RadarChart die verschiedenen Ergebnisse des Mitarbeiters in den Subkategorien des Tests angezeigt. Durch die Art des Diagramms ist schön erkennbar, in welchen Bereichen es am meisten Handlungsbedarf gibt. Das Diagramm wird zu Programmstart mit den entsprechenden Daten aus den bereitgestellten Funktionen bestückt und während der Laufzeit nicht weiter aktualisiert. Zum Erkennen von Entwicklungen werden die Daten aus der vorherigen Umfrage ebenfalls im selben Diagramm mit angezeigt. Durch die Verwendung transparenter Farben bleibt die Grafik dennoch übersichtlich.
+
+Im zweiten Diagramm werden mittels eines Balkendiagramms die Gesamtergebnisse des Mitarbeiters in den vergangenen 12 Tests angezeigt. Das Diagramm wird zu Programmstart mit den entsprechenden Daten aus den bereitgestellten Funktionen bestückt und während der Laufzeit nicht weiter aktualisiert.
+
+Das dritte Diagramm zeigt ebenfalls eine Entwicklung über die letzten 12 Tests: Hier wird in einem Liniendiagramm der Verlauf der Stimmung des Mitarbeiters oder der Mitarbeiterin angezeigt.
+
+Die weiteren Verwendeten Optionen der Diagramme (Padding, Anzeigen von Labels und Legenden, Schrittweiten der Diagramme, …) sind dem Programmcode zu entnehmen.
+Wichtig ist anzumerken, dass der Parameter „responsive“ auf „false“ gesetzt wurde, sodass die Diagramme beim Zoomen im Browser nicht mit skalieren, um eine sinnvolle Anzeige auf allen Displaygrößen zu gewährleisten (da bei sehr kleinen Bildschirmen Teile des Diagramms ohne Zoom nicht zu lesen waren).
+
+\subsection{Bottle Server}
+Die Bereitstellung der Daten, sowohl der Umfrageergebnisse als auch der Mitarbeiterdaten, erfolgt über einen Webserver, der außerhalb der Jira Instanz läuft. Für die technische Umsetzung wurde das Bottle Webframework ausgewählt. Auf dem Server werden die Rohdaten der Umfragen im .csv-Format hinterlegt. Das Serverbackend wurde so geschrieben, dass immer die relevanten Daten (die der letzten 12 Wochen) auf einer definierten Webadresse im JSON-Format abrufbar liegen. Ähnlich wird bei den Mitarbeiterdaten verfahren. Diese liegen in einer \texttt{sqlite}-Datenbank bereit. Der Server führt eine geeignete SQL-query aus und stellt die Ergebnisse auf einer Webadresse, wieder im JSON-Format, bereit.
+
+\subsection{Testfälle}
+Im Folgenden werden einige Testfälle näher betrachtet.
+
+\paragraph{
+i. Was passiert wenn mehr bzw. weniger als 12 CSV-Dateien mit monatlichen Umfrageergebnisse vorliegen?}
+Der Bottle-Server stellt stets nur die letzten die zwölf Dateien bereit. Falls es weniger als zwölf CSV-Dateien gibt, werden nur die bereitgestellt die existieren. In der Javascript Datei wird nur die Anzahl der existierenden Dateien verarbeitet und anschließend in Jira dargestellt.
+
+\paragraph{
+ii. Was passiert falls ein Mitarbeiter nicht alle Felder ausgefüllt hat und die CSV-Datei somit unvollständig ist?}
+Die Antworten für ersten 18 Fragen, die den Burnout-Test darstellen, können nur gespeichert und versendet werden, falls alle beantwortet wurden. Die Frage zu der aktuellen Gemütslage muss nicht beantwortet werden. Nichtsdestotrotz werden alle Antwortfelder (inklusive der Frage zur Stimmung) in Javascript mit dem Wert null initialisiert, sodass beim Nichtbeantworten von Fragen, nur die aktuell berechneten Ergebnisse verfälscht (Burnout-Test) oder gleich null (Frage zur Stimmung) sind. Jedoch ist das dem Mitarbeiter, der eine Frage bewusst nicht beantwortet hat bekannt, sodass die in Jira dargestellten Ergebnisse nicht überraschen.
+
+
+\subsection{Zusammenfassung}
+Zusammenfassend lässt sich feststellen, dass bei der technischen Umsetzung des Plugins viel Wert auf das normative Urteil gelegt wurde. Dies ist vor allem in der freiwilligen Teilnahme an der Umfrage und der Tatsache, dass jeder Mitarbeiter nur seine eigenen Ergebnisse und Analysen einsehen kann. Damit werden die Eingriffe in das Recht auf Privatheit und die Autonomie des Menschen weitgehend minimiert. Ebenfalls ist anzumerken, dass die Art, die verwendet wird, um die Ergebnisse mitzuteilen, keine Definitive ist. Mitarbeiter werden nicht dazu gezwungen ihre Ergebnisse zu besprechen oder den Empfehlungen nachzukommen. Es wird lediglich ein Hinweis und eine Anregung mitgeteilt. Das Unternehmen bietet seinen Angestellten die Möglichkeit einen Test zu ihrer psychischen Gesundheit durchzuführen, ob dieses Angebot wahrgenommen wird unterliegt einzig jedem Mitarbeiter.
+\end{document}
+

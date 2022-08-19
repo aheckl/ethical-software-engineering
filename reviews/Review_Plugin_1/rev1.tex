@@ -1,0 +1,64 @@
+\documentclass[oneside,12pt,a4paper,fleqn]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[left=2.8cm,right=2.8cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[ngerman]{babel}
+\newcommand{\ToDo}[1]{
+\begin{center}
+\fbox{
+\begin{minipage}{0.9\textwidth}
+#1
+\end{minipage}
+}
+\end{center}
+}
+%========== Title etc. ===================================
+\title{\textbf{\boldmath Review Feature 1\unboldmath}}
+\author{Reviewer: Andreas Mütter}
+\date{}
+%---------------------------------------------------------
+\begin{document}
+\maketitle
+\begin{figure}
+\begin{minipage}[b]{\textwidth}
+\ToDo{\tiny\textbf{Hinweis:} Der Lesbarkeit halber stehen bei generischen Nomen alle grammatisch maskulinen Formen für Frauen, Männer und andere. Das grammatische Geschlecht spiegelt nicht das biologische wider.}
+\end{minipage}
+\end{figure}
+\section{Überblick}
+
+Für ihr Plugin beschreiben die Autoren ein System, das einen Manager bei der Terminfindung für Meetings mit Angestellten unterstützen soll. Konkret werden anhand von Nutzerdaten aus einem festgelegten Zeitraum die produktivsten Zeiten jedes Mitarbeiters bestimmt. Der Manager kann dann für einen bestimmten Mitarbeiter vom System Vorschläge für Meetingtermine bekommen, die nach Möglichkeit in den weniger produktiven Phasen des betreffenden Mitarbeiters liegen. Insbesondere erhält der Manager eine Tabelle, die einem Zeitraum (z.B. Montag Vormittag) eine Produktivitätskennzahl zuordnet. Damit soll der Manager in die Lage versetzt werden, Termine für Meetings in unproduktive Zeiten des Mitarbeiters zu legen und so die Arbeitszeit der Mitarbeiter effizienter genutzt werden. Dies alles geschieht unter der Prämisse, dass sich die Produktivität eines Mitarbeiters in annehmbar guter Näherung durch sein Nutzungsverhalten in Jira messen lässt.
+
+\medskip
+
+Die Autoren führen eine Reihe ethischer Probleme an, die diese Herangehensweise mit sich bringt. Zentral ist dabei vor allem, dass der Manager einen detaillierten Einblick in die unproduktiven Zeiten eines Mitarbeiters bekommt, da er genau diese ja vom System abfragt. Die Autoren legen (in tabellarischer Kurzform) knapp aber schlüssig dar, warum eine Umsetzung des Systems trotz dieses Eingriffs in die Privatsphäre des Mitarbeiters für alle Beteiligten wünschenswert und vertretbar ist. Sie argumentieren, dass der durch den Eingriff in die Privatsphäre erlittene Nachteil durch die effizientere Nutzung der Arbeitszeit mehr als aufgewogen wird, solange die Daten nicht in die Hände Dritter gelangen.
+
+
+\section{Bemerkungen zum Konzept}
+
+Allerdings lässt die vorliegende Konzeption eine Reihe von Fragen unbeantwortet. Wenn man es ganz kritisch formulieren will, ist das Gadget in seinem vorliegenden Funktionsumfang weniger ein Tool zum Finden von Meetingslots, sondern eher ein Analyseinstrument, das dem Manager vollumfängliche Informationen über die Produktivität des Mitarbeiters in \emph{jedem} Zeitraum in der Arbeitswoche liefert. Das liegt vor Allem daran, dass der Manager weit mehr Informationen bekommt, als er zum Finden optimaler Slots benötigt.
+
+\medskip
+
+So ist fraglich, warum der Manager die gesamte Liste mit detaillierten Kennzahlen erhalten muss. Es wäre durchaus möglich, dem Manager nur ein paar Zeiträume mit niedriger Produktivität (ohne die genaue Kennzahl, und nicht die gesamte Liste) anzuzeigen.
+
+\medskip
+
+Genauso stellt sich beispielsweise die Frage, weshalb der Manager vom System eine Auskunft über einzelne Mitarbeiter bekommen muss, was ja, wie die Autoren es darstellen, die größten ethischen Bedenken weckt. Das System würde seinen Zweck (zumindest mit Meetings von mehr als z.B. fünf Mitarbeitern) genauso erfüllen, wenn der Manager immer nur eine Empfehlung für Personengruppen (statt Einzelpersonen) bekäme. Gleichzeitig wäre die Rückverfolgbarkeit auf einzelne Mitarbeiter nicht mehr (oder in wesentlich geringerem Maße) gegeben, und so das Problem der verletzten Privatsphäre beinahe gelöst.
+
+\medskip
+
+Auf technischer Ebene könnte auf einige logische Fälle eingegangen werden, die leicht das gewünschte Ergebnis verfälschen könnten. So werden Urlaubs- oder Krankheitstage nicht markiert und die betreffenden Zeiträume dementsprechend als unproduktiv markiert, ohne dass dies die tatsächliche Produktivität des Mitarbeiters darstellen kann. Im Prinzip wäre diese Fehlerquelle schnell beseitigt, wenn Tage ohne jegliche Aktivität als Krankheits- oder Urlaubstage gerechnet werden.
+
+
+\section{Bemerkungen zur Umsetzung}
+
+Das Gadget konnte mit einem von der Gruppe bereitgestellten Testdatengenerator problemlos gestartet und getestet werden und läuft flüssig. Die Ausgabe der Produktivitätsliste erfolgt durch Eingabe einer User-Id, danach wird per Mausklick die Programmlogik in Gang gesetzt. Allerdings bekommt der Benutzer keinen Hinweis, falls eine ungültige User-Id angegeben wird, sondern einfach eine Liste mit den Init-Werten der Produktivitätsliste. Auch fällt bei dieser Herangehensweise auf, dass bei jeder Neu-Eingabe von User-Id's dieselbe Liste von Issues neu aus der API gefetcht und analysiert wird. Im Prinzip könnte dies beim Starten des Plugins ein einziges Mal geschehen, was die Laufzeit bei einer großen Anzahl von analysierten Issues und Anfragen erheblich verringern würde. Auch wäre es schön, wenn -- wie in der Beschreibung versprochen -- der Analysezeitraum variabel sein könnte. Im momentanen Zustand ist der Defaultwert von 14 Tagen hart einprogrammiert, ja sogar die zugehörige Variable entsprechend benannt ({\tt twoWeeksAgo}).
+
+\medskip
+
+Der Source Code selbst ist meiner Meinung nach vorbildlich. Daten- und Kontrollstrukturen wurden effizient eingesetzt und moderne JavaScript-Syntax verwendet. Alle Variablen und Funktionen tragen sinnvolle Namen und die gewählte ``camelCase'' Benennungskonvention wurde durchgehalten. Zusammen mit der klaren Struktur ist der Code auch ohne ausführliche Kommentare leicht zu verstehen. An Stellen wo dies sinnvoll ist, wurden entsprechende Kommentare eingefügt.
+
+\section{Fazit}
+
+Die Autoren machen einen in sich schlüssigen Vorschlag, wie ein relevantes Problem mithilfe von vorhandenen Daten gelöst werden kann. Sie legen zudem überzeugend dar, warum es ethisch vertretbar ist ihre Lösung umzusetzen. Die Umsetzung folgt weitgehend den ethischen Vorgaben, kann allerdings an einigen Stellen noch verbessert werden, um dem eigentlichen Zweck des Plugins mehr gerecht zu werden.
+\end{document}

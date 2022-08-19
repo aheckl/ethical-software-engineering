@@ -1,0 +1,55 @@
+\documentclass[oneside,12pt,a4paper,fleqn]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[left=2.8cm,right=2.8cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[ngerman]{babel}
+\newcommand{\ToDo}[1]{
+\begin{center}
+\fbox{
+\begin{minipage}{0.9\textwidth}
+#1
+\end{minipage}
+}
+\end{center}
+}
+%========== Title etc. ===================================
+\title{\textbf{\boldmath Review Feature 4\unboldmath}}
+\author{Reviewer: Andreas Mütter}
+\date{}
+%---------------------------------------------------------
+\begin{document}
+\maketitle
+\begin{figure}
+\begin{minipage}[b]{\textwidth}
+\ToDo{\tiny\textbf{Hinweis:} Der Lesbarkeit halber stehen bei generischen Nomen alle grammatisch maskulinen Formen für Frauen, Männer und andere. Das grammatische Geschlecht spiegelt nicht das biologische wider.}
+\end{minipage}
+\end{figure}
+\section{Überblick}
+
+In ihrem Plugin entwickeln die Autoren ein System, das frühzeitig erkennen soll, ob Mitarbeiter an psychischen Erkrankungen leiden oder gefährdet sind, zu erkranken. Dazu werden die Kommentare, die die Mitarbeiter in Jira-Issues hinterlassen, mittels NLP ausgewertet. Sollte ein Mitarbeiter aufgrund der von ihm an den Tag gelegten Wortwahl als gefährdet eingestuft werden, bekommt sein zuständiger Manager einen entsprechenden Hinweis. Hier machen die Autoren die implizite Annahme, dass die in Jira-Kommentaren verwendete Sprache (anders als in privaten Chats beispielsweise) nicht durch technischen Fachjargon so stark überformt ist, dass keine verlässlichen Rückschlüsse auf den psychischen Zustand des Mitarbeiters möglich sind. Konkret erfolgt die Analyse über eine Liste von Wörtern, deren Verwendung auf psychische Dysbalancen hindeuten. Jedes dieser Wörter hat ein bestimmtes Gewicht, das ausdrückt, wie sehr die Verwendung des betreffenden Wortes auf eine psychische Erkrankung hindeutet. Für jeden Mitarbeiter werden seine Kommentare in den Issues durchgegangen und registriert wie viele Wörter aus der Liste (und mit welchen Gewicht) er verwendet hat. Liegt der auf die Anzahl der hinterlassenen Kommentare normierte Gesamtwert nur kanpp unter oder über einem vordefinierten Schwellenwert, bekommt der Manager eine entsprechende Mitteilung.  
+
+\medskip
+
+Die Autoren beschreiben eine Vielzahl möglicher ethischer Probleme bei diesem Ansatz. Im Vordergrund steht dabei, dass die Analyse von Kommentaren auf Zeichen für psychische Erkrankungen einen massiven Eingriff in die Privatsphäre des Mitarbeiters darstellt. Die Autoren argumentieren allerdings, dass allein die Möglichkeit, tatsächlich Erkrankten helfen zu können, diesen Nachteil für die Gesamtheit der Mitarbeiter aufwiegt. Dabei ist eine Bedingung, dass die Ergebnisse der Auswertung keinesfalls an unberechtigte Personen (d.h.\ alle außer dem Mitarbeiter und seinem Manager, bzw.\ ggf.\ im Nachgang konsultierten Ärzten/Psychologen) weitergegeben werden dürfen.
+
+\section{Bemerkungen zum Konzept}
+
+
+Die Autoren bewerten die Situation ausschließlich im Hinblick auf Mitarbeiter, die tatsächlich erkrankt sind. In unseren Augen kommt die Belange der gesunden Mitarbeiter, die in einem durchschnittlichen Unternehmen sicher die Mehrheit darstellen, aber deren Autonomie und Privatsphäre deswegen nicht weniger schützenswert ist, deutlich zu kurz.
+Die Autoren begründen die ethische Vertretbarkeit in weiten Teilen damit, dass es nur ein geringer Eingriff in die Privatsphäre des Mitarbeiters sei, wenn ``nur'' der zuständige Vorgesetzte Einblick in die Analyseergebnisse bekommt. Unserer Ansicht nach stellt dies allerdings sehr wohl ein großes Problem dar, vor allem deshalb, weil die Mitarbeiter keine Wahl haben, ob sie sich analysieren lassen wollen oder nicht, schließlich ist es Teil ihrer Arbeit, Kommentare in Jira-Issues zu hinterlassen. Somit ist jeder Mitarbeiter gezwungen, sich ohne sein Einverständnis von seinem Vorgesetzten (der immerhin maßgeblichen Einfluss auf die berufliche Zukunft des Mitarbeiters hat) auf die Finger schauen zu lassen, ob er nun will oder nicht. Aus unserem Blickwinkel verdient diese Tatsache eine eigene Diskussion, die die Autoren (vielleicht auch wegen der tabellarischen Kürze) schuldig bleiben.
+
+
+
+\section{Bemerkungen zur Umsetzung}
+
+Das Gadget konnte mit einem von der Gruppe bereitgestellten Testdatengenerator problemlos gestartet und getestet werden und läuft flüssig. Die in der Beschreibung dargestellte Funktionalität ist vollständing umgesetzt.
+
+\medskip
+
+Der Source Code setzt die Funktionalität effizient um. Dazu wird zunächst die Wortliste geladen. Hier könnten sich die Autoren Zeit und Mühe sparen, wenn die Wortliste nicht in einem speziell formatierten String, sondern als Object vorliegen würde. Inbesondere könnte jedem Wort als key das entprechende Gewicht als value zugeordnet werden
+$$\texttt{var swear}=\lbrace \texttt{"\ absolutely "\ } :0.2, \texttt{"\ all "\ } :0.2, \dots\rbrace\;.$$
+Zudem vereinfacht diese Herangehensweise die Erstellung und Weitergabe der Liste, die jetzt im JSON-Format ist. Dann wird überprüft, ob der Benutzer auch Admin (=Manager) ist. Falls ja, werden die User und ihre Kommentare aus der REST API gefetcht. Das auftretende Problem, dass Jira bei Anfragen mit einer großen Zahl von Ergebnissen keine Kommentare mehr mit ausgibt, lösen die Autoren. Allerdings hätte die dadurch entstehende Struktur etwas mehr Dokumentation verdient, da man oft im Quellcode hin und her springen muss, um zu verstehen, was passiert. Überhaupt sind die Kommentare leider sehr verbesserungsbedürftig. So wird ständig zwischen Englisch und Deutsch gewechselt, und leider haben viele Kommentare Rechtschreibfehler. Passiv-aggressive Bemerkungen gegen Jira gehören nicht in dokumentierte Software.
+
+\section{Fazit}
+Die Autoren schaffen es, Lösungswege für gravierende Probleme in vielen Unternehmen aufzuzeigen und zu implementieren. Es ist toll zu sehen, wie sie dazu einen auf das Problem zugeschnittenen NLP-Ansatz wählen. Allerdings sollte bei der ethischen Vertretbarkeit mehr auf die Belange der gesunden Mitarbeiter eingegangen werden, genauso wie der Quellcode an einigen Stellen verbessert werden kann.
+\end{document}
